@@ -10,6 +10,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
         integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styly.css">
 </head>
 
 <body>
@@ -35,8 +37,9 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label" for="prijmeni">Příjmení</label>
                     <div class="col-sm-8">
-                        <input id="prijmeni" name="prijmeni" placeholder="Příjmení studenta" class="form-control"
-                            required type="text">
+                        <input type="text" id="prijmeni" name="prijmeni" placeholder="Příjmení studenta" class="form-control"
+                        required pattern="\D{0,}">
+                        <div class="invalid-feedback">Prosím, vyplňte své příjmení.</div>
                     </div>
                 </div>
 
@@ -44,7 +47,9 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label" for="narozeni">Datum narození</label>
                     <div class="col-sm-8">
-                        <input id="narozeni" name="narozeni" placeholder="dd.mm.yyyy" class="form-control" type="date" pattern="^todo$">
+                        <input id="narozeni" name="narozeni" placeholder="dd.mm.yyyy" class="form-control" type="date" required
+                        pattern="^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$">
+                         <div class="invalid-feedback">Prosím, zadejte správné datum narození</div>
                     </div>
                 </div>
 
@@ -135,7 +140,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                             </div>
-                            <input type="text" class="form-control" name="username" id="username" placeholder="?" pattern="^todo$"
+                            <input type="text" class="form-control" name="username" id="username" placeholder="?" pattern="^it(1[7-9]+|20)(0[1-9]+|[1-3]+[0-9]+)|sv(1[7-9]+|20)(0[1-9]+|[1-3]+[0-9]+)|uo(1[7-9]+|20)(0[1-9]+|[1-3]+[0-9]+)$"
                                 aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback">
                                 Zadejte správné uživatelské jméno
@@ -152,7 +157,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend">IPv4</span>
                             </div>
-                            <input type="text" class="form-control" name="ip" id="ip" placeholder="192.168.?.?" pattern="^todo$"
+                            <input type="text" class="form-control" name="ip" id="ip" placeholder="192.168.?.?" pattern="^192\.168\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$"
                                 aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback">
                                 Zadejte správnou IP adresu
@@ -169,7 +174,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend">MAC</span>
                             </div>
-                            <input type="text" class="form-control" name="mac" id="mac" placeholder="?" pattern="^todo$"
+                            <input type="text" class="form-control" name="mac" id="mac" placeholder="?" pattern="^([A-Fa-f0-9]{2}-){5}[A-Fa-f0-9]{2}$"
                                 aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback">
                                 Zadejte správnou MAC adresu
@@ -184,7 +189,7 @@
                     <div class="col-sm-8">
                         <div class="input-group">
                             <input type="email" class="form-control" id="email" placeholder="student@sspu-opava.cz"
-                                aria-describedby="inputGroupAppend" required>
+                                aria-describedby="inputGroupAppend" required pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="inputGroupAppend">e-mail</span>
                             </div>
@@ -200,6 +205,7 @@
                     <label class="col-sm-4 col-form-label" for="heslo">Heslo</label>
                     <div class="col-sm-8">
                         <input id="heslo" name="heslo" placeholder="Zadejte heslo" class="form-control" type="password">
+                        <span toggle="#heslo" class="fa fa-fw fa-eye field-icon heslo"></span>
                     </div>
                 </div>
 
@@ -275,6 +281,16 @@
                 });
             }, false);
         })();
+
+        $(".heslo").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        }
+        });
     </script>
 </body>
 
